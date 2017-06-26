@@ -1,3 +1,4 @@
 *.swp
 images/*.jpg
 vendor
+index.html
