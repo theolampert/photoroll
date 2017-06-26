@@ -1,0 +1,62 @@
+<html>
+  <head>
+    <title>{{ .title }}</title>
+    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.7.0/css/tachyons.min.css"/>
+    <style>
+      .image {
+        position: relative;
+        background-color: #eee;
+      }
+      .image:before {
+        display: block;
+        content: "";
+        width: 100%;
+      }
+      .image img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+      }
+    </style>
+  </head>
+  <body>
+    {{ range .Images }}
+    <div class="mw8 mt5 mb5 center ph3">
+      <div class="image" style="padding-top:{{.Ratio}}%">
+        <img data-src="{{.Src}}" style="opacity:0;"/>
+      </div>
+    </div>
+    {{ end }}
+    <script>
+    const imgs = [ ...document.querySelectorAll('img[data-src]') ];
+    if ('IntersectionObserver' in window) {
+      let observer = new IntersectionObserver(onChange);
+
+      function onChange(changes) {
+        changes.forEach((change) => {
+          if (change.isIntersecting) {
+            change.target.src = change.target.dataset.src;
+            change.target.addEventListener('load', () => {
+              change.target.style.opacity = 1;
+            });
+            observer.unobserve(change.target);
+          }
+        })
+      }
+
+      imgs.forEach((img) => observer.observe(img));
+
+      } else {
+        function loadImages(imgs) {
+          imgs.forEach((image) => {
+            image.src = image.dataset.src;
+          })
+        }
+        loadImages(imgs);
+    }
+
+    </script>
+  </body>
+</html>

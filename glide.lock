@@ -1,0 +1,6 @@
+hash: adfd587c678f68b3a2f6af41a27e0d14f4c5581016ba8fccd11bbb9db830f4d7
+updated: 2017-06-26T18:31:42.179042037+02:00
+imports:
+- name: github.com/tockins/realize
+  version: 2aeeddbc157bcca0eb7d4eb07367f1fa35121ad9
+testImports: []
